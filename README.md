@@ -1,8 +1,10 @@
-Country Code Picker Library ![MavenCentral](https://maven-badges.herokuapp.com/maven-central/com.hbb20/ccp/badge.svg)
+Country Code Picker Library [![Jitpack](https://jitpack.io/v/pratikPSB/CountryCodePicker.svg)](https://jitpack.io/#pratikPSB/CountryCodePicker)
 ==================================
 
-![ViewCount](https://views.whatilearened.today/views/github/hbb20/CountryCodePickerProject.svg) [![GitHub issues](https://img.shields.io/github/issues/hbb20/CountryCodePickerProject)](https://github.com/hbb20/CountryCodePickerProject/issues)  [![GitHub forks](https://img.shields.io/github/forks/hbb20/CountryCodePickerProject)](https://github.com/hbb20/CountryCodePickerProject/network) [![GitHub stars](https://img.shields.io/github/stars/hbb20/CountryCodePickerProject)](https://github.com/hbb20/CountryCodePickerProject/stargazers) [![GitHub license](https://img.shields.io/github/license/hbb20/CountryCodePickerProject)](https://github.com/hbb20/CountryCodePickerProject/blob/master/License.txt) 
-![GitHub search hit counter](https://img.shields.io/github/search/hbb20/CountryCodePickerProject/CountryCodePicker)
+Forked from [hbb20/CountryCodePickerProject](https://github.com/hbb20/CountryCodePickerProject)
+
+![ViewCount](https://views.whatilearened.today/views/github/pratikPSB/CountryCodePickerProject.svg) [![GitHub issues](https://img.shields.io/github/issues/pratikPSB/CountryCodePickerProject)](https://github.com/pratikPSB/CountryCodePickerProject/issues)  [![GitHub forks](https://img.shields.io/github/forks/pratikPSB/CountryCodePickerProject)](https://github.com/pratikPSB/CountryCodePickerProject/network) [![GitHub stars](https://img.shields.io/github/stars/pratikPSB/CountryCodePickerProject)](https://github.com/pratikPSB/CountryCodePickerProject/stargazers) [![GitHub license](https://img.shields.io/github/license/pratikPSB/CountryCodePickerProject)](https://github.com/pratikPSB/CountryCodePickerProject/blob/master/License.txt) 
+![GitHub search hit counter](https://img.shields.io/github/search/pratikPSB/CountryCodePickerProject/CountryCodePicker)
 
 
 If you are looking for an android library for Country Selector or Country Spinner or Country Phone Code selector, this is the perfect place for you.
@@ -27,12 +29,18 @@ Introduction
 How to add to your project
 --------------
 
-Add this to your gradle file and sync. See [CHANGELOG](https://github.com/hbb20/CountryCodePickerProject/blob/master/CHANGELOG.md) for detailed list of changes.
+Add this to your gradle file and sync. See [CHANGELOG](https://github.com/pratikPSB/CountryCodePickerProject/blob/master/CHANGELOG.md) for detailed list of changes.
+
+  ```groovy
+        repositories {
+            maven { url 'https://jitpack.io' }
+        }
+  ```
 
   ````groovy
-          dependencies {
-            implementation 'com.hbb20:ccp:X.Y.Z'
-          }
+        dependencies {
+            implementation 'com.github.pratikPSB:CountryCodePicker:vX.Y.Z'
+        }
    ````
    ![MavenCentral](https://maven-badges.herokuapp.com/maven-central/com.hbb20/ccp/badge.svg)
   * If you are using version lower than 2.0.0 then please read [update guide](https://github.com/hbb20/CountryCodePickerProject/wiki/Update-Guide-for-v2.0.0) before upgrading to v2.0.0. or above*

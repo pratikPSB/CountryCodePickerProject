@@ -5,9 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Next Release]
-- Update Japanese
-  translations [Discussion](https://github.com/hbb20/CountryCodePickerProject/discussions/572)
+
+
+## 2.8.0 - 2025-11-21
+- Refactor: Migrate library to Kotlin and update dependencies
+
+This commit migrates the entire library from Java to Kotlin, enhancing code safety and conciseness.
+
+Key changes include:
+* Converted all Java classes to their Kotlin equivalents.
+* Replaced the custom dialog with a `BottomSheetDialogFragment` for a more modern UI.
+* Updated Gradle version to 8.13 and upgraded various dependencies, including `appcompat`, `recyclerview`, and `libphonenumber-android`.
+* Replaced XML-based country data parsing with a more efficient JSON-based approach from assets.
+* Added `Glide` for image loading to handle country flags.
+-----------------
+### Note:
+* Don't forget to add Fragment manager as I've migrated it from dialog to bottomSheet.
+  * eg.:
+    * Activity: 
+    ```kotlin
+    binding.ccp.setFragmentManager(supportFragmentManager)
+    ```
+    
+    * Fragment: 
+    ```kotlin
+    binding.ccp.setFragmentManager(supportFragmentManager)
+    ```
 
 ## 2.7.1 - 2023-04-30
 
