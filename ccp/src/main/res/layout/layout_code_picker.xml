@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/countryCodeHolder"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/rlClickConsumer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/ccp_padding"
-        >
+        android:padding="@dimen/_5sdp">
 
         <LinearLayout
             android:id="@+id/linear_flag_holder"
@@ -20,53 +17,47 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/google_1x"
-            android:layout_marginRight="@dimen/google_1x"
-            >
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp">
 
-            <LinearLayout
-                android:id="@+id/linear_flag_border"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_flag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                >
+                android:maxWidth="@dimen/_17sdp"
+                android:maxHeight="@dimen/_15sdp"
+                android:scaleType="fitXY"
+                android:layout_margin="0.5dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/flag_india"
+                app:shapeAppearanceOverlay="@style/cornerRadiusShapeableImageForFlags" />
 
-                <ImageView
-                    android:id="@+id/image_flag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="18dp"
-                    android:layout_margin="0.5dp"
-                    android:adjustViewBounds="true"
-                    app:srcCompat="@drawable/flag_india"
-                    />
-            </LinearLayout>
         </LinearLayout>
 
         <!--</LinearLayout>-->
         <TextView
             android:id="@+id/textView_selectedCountry"
+            style="@style/BookText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/linear_flag_holder"
             android:layout_toRightOf="@+id/linear_flag_holder"
             android:singleLine="true"
-            android:text="(IN) +91"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            />
+            android:text="+91"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp" />
 
         <ImageView
             android:id="@+id/imageView_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_7sdp"
             android:layout_toEndOf="@+id/textView_selectedCountry"
             android:layout_toRightOf="@+id/textView_selectedCountry"
             android:adjustViewBounds="true"
-            android:alpha="0.6"
-            app:srcCompat="@drawable/ccp_ic_arrow_drop_down"
-            app:tint="@android:color/black"
-            />
+            android:src="@drawable/ccp_ic_arrow_drop_down"
+            app:tint="@color/black" />
     </RelativeLayout>
 </RelativeLayout>

@@ -15,55 +15,90 @@ import com.hbb20.CountryCodePicker.Language.*
 /**
  * A simple [Fragment] subclass.
  */
-class LanguageSupportFragment: Fragment() {
+class LanguageSupportFragment : Fragment() {
 
-	private lateinit var radioGroup: RadioGroup
-	private lateinit var radioEnglish: RadioButton
-	private lateinit var radioJapanese: RadioButton
-	private lateinit var radioSpanish: RadioButton
-	private lateinit var ccp: CountryCodePicker
-	private lateinit var buttonNext: Button
-	private lateinit var rootView: View
+    private lateinit var radioGroup: RadioGroup
+    private lateinit var radioEnglish: RadioButton
+    private lateinit var radioJapanese: RadioButton
+    private lateinit var radioSpanish: RadioButton
+    private lateinit var ccp: CountryCodePicker
+    private lateinit var buttonNext: Button
+    private lateinit var rootView: View
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		rootView = inflater.inflate(R.layout.fragment_language_support, container, false)
-		return rootView
-	}
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        rootView = inflater.inflate(R.layout.fragment_language_support, container, false)
+        return rootView
+    }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-		assignViews()
-		setClickListener()
-	}
+        assignViews()
+        setClickListener()
+    }
 
-	private fun setClickListener() {
-		radioGroup.setOnCheckedChangeListener { _, checkedId ->
-			when (checkedId) {
-				R.id.radioEnglish  -> {
-					ccp.changeDefaultLanguage(ENGLISH)
-					Toast.makeText(context, "Language is updated to ENGLISH", Toast.LENGTH_SHORT).show()
-				}
-				R.id.radioJapanese -> {
-					ccp.changeDefaultLanguage(JAPANESE)
-					Toast.makeText(context, "Language is updated to JAPANESE", Toast.LENGTH_SHORT).show()
-				}
-				R.id.radioSpanish  -> {
-					ccp.changeDefaultLanguage(SPANISH)
-					Toast.makeText(context, "Language is updated to SPANISH", Toast.LENGTH_SHORT).show()
-				}
-			}
-		}
+    private fun setClickListener() {
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.radioEnglish -> {
+                    ccp.changeDefaultLanguage(ENGLISH)
+                    Toast.makeText(
+                        context,
+                        "Language is updated to ENGLISH",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-		buttonNext.setOnClickListener { (activity as ExampleActivity).viewPager.currentItem = (activity as ExampleActivity).viewPager.currentItem + 1 }
-	}
+                R.id.radioJapanese -> {
+                    ccp.changeDefaultLanguage(JAPANESE)
+                    Toast.makeText(
+                        context,
+                        "Language is updated to JAPANESE",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-	private fun assignViews() {
-		ccp = rootView.findViewById(R.id.ccp)
-		radioGroup = rootView.findViewById(R.id.radioGroup)
-		radioEnglish = rootView.findViewById(R.id.radioEnglish)
-		radioJapanese = rootView.findViewById(R.id.radioJapanese)
-		radioSpanish = rootView.findViewById(R.id.radioSpanish)
-		buttonNext = view!!.findViewById(R.id.button_next)
-	}
+                R.id.radioSpanish -> {
+                    ccp.changeDefaultLanguage(SPANISH)
+                    Toast.makeText(
+                        context,
+                        "Language is updated to SPANISH",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+        buttonNext.setOnClickListener { (activity as ExampleActivity).viewPager.currentItem += 1 }
+    }
+
+    private fun assignViews() {
+        ccp = rootView.findViewById(R.id.ccp)
+        ccp.setFragmentManager(childFragmentManager)
+
+        val ccp1: CountryCodePicker = rootView.findViewById(R.id.ccp1)
+        val ccp2: CountryCodePicker = rootView.findViewById(R.id.ccp2)
+        val ccp3: CountryCodePicker = rootView.findViewById(R.id.ccp3)
+        val ccp4: CountryCodePicker = rootView.findViewById(R.id.ccp4)
+        val ccp5: CountryCodePicker = rootView.findViewById(R.id.ccp5)
+        val ccp6: CountryCodePicker = rootView.findViewById(R.id.ccp6)
+
+        ccp1.setFragmentManager(childFragmentManager)
+        ccp2.setFragmentManager(childFragmentManager)
+        ccp3.setFragmentManager(childFragmentManager)
+        ccp4.setFragmentManager(childFragmentManager)
+        ccp5.setFragmentManager(childFragmentManager)
+        ccp6.setFragmentManager(childFragmentManager)
+
+
+        radioGroup = rootView.findViewById(R.id.radioGroup)
+        radioEnglish = rootView.findViewById(R.id.radioEnglish)
+        radioJapanese = rootView.findViewById(R.id.radioJapanese)
+        radioSpanish = rootView.findViewById(R.id.radioSpanish)
+        buttonNext = requireView().findViewById(R.id.button_next)
+    }
 }

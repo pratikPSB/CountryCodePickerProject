@@ -6,9 +6,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-		    classpath 'com.android.tools.build:gradle:7.4.0'
-        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.14.2'
-        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:1.4.10.2'
+        classpath 'com.android.tools.build:gradle:8.13.1'
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.35.0'
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:2.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -26,6 +26,6 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }

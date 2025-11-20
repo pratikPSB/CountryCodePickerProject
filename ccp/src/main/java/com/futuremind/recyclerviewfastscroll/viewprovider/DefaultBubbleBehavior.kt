@@ -1,34 +1,17 @@
-package com.futuremind.recyclerviewfastscroll.viewprovider;
+package com.futuremind.recyclerviewfastscroll.viewprovider
 
 /**
  * Created by Michal on 11/08/16.
  */
-public class DefaultBubbleBehavior implements ViewBehavior {
-
-    private final VisibilityAnimationManager animationManager;
-
-    public DefaultBubbleBehavior(VisibilityAnimationManager animationManager) {
-        this.animationManager = animationManager;
+class DefaultBubbleBehavior(private val animationManager: VisibilityAnimationManager?) : ViewBehavior {
+    override fun onHandleGrabbed() {
+        animationManager!!.show()
     }
 
-    @Override
-    public void onHandleGrabbed() {
-        animationManager.show();
+    override fun onHandleReleased() {
+        animationManager!!.hide()
     }
 
-    @Override
-    public void onHandleReleased() {
-        animationManager.hide();
-    }
-
-    @Override
-    public void onScrollStarted() {
-
-    }
-
-    @Override
-    public void onScrollFinished() {
-
-    }
-
+    override fun onScrollStarted() {}
+    override fun onScrollFinished() {}
 }

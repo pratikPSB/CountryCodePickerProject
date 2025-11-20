@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.ProgressBar" parent="AppTheme">
+        <item name="android:layout_width">@dimen/_30sdp</item>
+        <item name="android:layout_height">@dimen/_30sdp</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/top_corner_bg</item>
+    </style>
+
+    <style name="BlackText" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/circular_std_black</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="BoldText" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/circular_std_bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="BookText" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/circular_std_book</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="MediumText" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/circular_std_medium</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="cornerRadiusShapeableImageForFlags">
+        <item name="cornerSize">@dimen/_2sdp</item>
+    </style>
+
+</resources>

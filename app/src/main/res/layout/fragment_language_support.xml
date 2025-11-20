@@ -48,14 +48,14 @@
                     <TextView
                         style="@style/pointText"
                         android:paddingLeft="32dp"
-                        android:text='add app:ccp_defaultLanguage="RUSSIAN" to xml layout.'/>
+                        android:text='add app:ccp_defaultLanguage="RUSSIAN" to xml layout.' />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
                         android:layout_marginLeft="32dp"
                         android:layout_marginRight="16dp"
+                        android:layout_marginBottom="16dp"
                         android:background="#222124"
                         android:padding="8dp">
 
@@ -70,12 +70,13 @@
                                 android:gravity="center_vertical">
 
                                 <com.hbb20.CountryCodePicker
+                                    android:id="@+id/ccp1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    app:ccp_autoDetectCountry="false"
                                     app:ccp_contentColor="@android:color/white"
                                     app:ccp_defaultLanguage="ARABIC"
-                                    app:ccp_autoDetectCountry="false"
-                                    app:ccp_defaultNameCode="sa"/>
+                                    app:ccp_defaultNameCode="sa" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -93,12 +94,13 @@
                                 android:gravity="center_vertical">
 
                                 <com.hbb20.CountryCodePicker
+                                    android:id="@+id/ccp2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    app:ccp_autoDetectCountry="false"
                                     app:ccp_contentColor="@android:color/white"
                                     app:ccp_defaultLanguage="CHINESE_TRADITIONAL"
-                                    app:ccp_autoDetectCountry="false"
-                                    app:ccp_defaultNameCode="cn"/>
+                                    app:ccp_defaultNameCode="zh" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -116,12 +118,13 @@
                                 android:gravity="center_vertical">
 
                                 <com.hbb20.CountryCodePicker
+                                    android:id="@+id/ccp3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    app:ccp_autoDetectCountry="false"
                                     app:ccp_contentColor="@android:color/white"
                                     app:ccp_defaultLanguage="ENGLISH"
-                                    app:ccp_autoDetectCountry="false"
-                                    app:ccp_defaultNameCode="us"/>
+                                    app:ccp_defaultNameCode="en" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -139,11 +142,13 @@
                                 android:gravity="center_vertical">
 
                                 <com.hbb20.CountryCodePicker
+                                    android:id="@+id/ccp4"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    app:ccp_contentColor="@android:color/white"
                                     app:ccp_autoDetectCountry="false"
-                                    app:ccp_defaultLanguage="HINDI"/>
+                                    app:ccp_contentColor="@android:color/white"
+                                    app:ccp_defaultLanguage="HINDI"
+                                    app:ccp_defaultNameCode="hi" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -161,12 +166,13 @@
                                 android:gravity="center_vertical">
 
                                 <com.hbb20.CountryCodePicker
+                                    android:id="@+id/ccp5"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    app:ccp_autoDetectCountry="false"
                                     app:ccp_contentColor="@android:color/white"
                                     app:ccp_defaultLanguage="GERMAN"
-                                    app:ccp_autoDetectCountry="false"
-                                    app:ccp_defaultNameCode="de"/>
+                                    app:ccp_defaultNameCode="de" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -184,12 +190,13 @@
                                 android:gravity="center_vertical">
 
                                 <com.hbb20.CountryCodePicker
+                                    android:id="@+id/ccp6"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    app:ccp_autoDetectCountry="false"
                                     app:ccp_contentColor="@android:color/white"
                                     app:ccp_defaultLanguage="RUSSIAN"
-                                    app:ccp_autoDetectCountry="false"
-                                    app:ccp_defaultNameCode="ru"/>
+                                    app:ccp_defaultNameCode="ru" />
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -217,7 +224,7 @@
                 <TextView
                     style="@style/pointText"
                     android:paddingLeft="32dp"
-                    android:text="To set language programmatically, use changeDefaultLanguage() method."/>
+                    android:text="To set language programmatically, use changeDefaultLanguage() method." />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -240,8 +247,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:checked="true"
-                            android:text="English"
-                            />
+                            android:text="English" />
 
                         <RadioButton
                             android:id="@+id/radioJapanese"
@@ -257,6 +263,7 @@
                             android:layout_weight="1"
                             android:text="Spanish" />
                     </RadioGroup>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -281,7 +288,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 app:ccp_contentColor="@color/card_background"
-                                app:ccp_defaultNameCode="IN"/>
+                                app:ccp_defaultNameCode="IN" />
 
                             <EditText
                                 android:layout_width="match_parent"
@@ -295,6 +302,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
                 <Button
                     android:id="@+id/button_next"
                     style="@style/Widget.AppCompat.Button.Colored"

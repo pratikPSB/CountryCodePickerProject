@@ -1,70 +1,56 @@
-package com.futuremind.recyclerviewfastscroll;
+package com.futuremind.recyclerviewfastscroll
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Created by Michal on 04/08/16.
- * Responsible for updating the handle / bubble position when user scrolls the {@link RecyclerView}.
+ * Responsible for updating the handle / bubble position when user scrolls the [RecyclerView].
  */
-public class RecyclerViewScrollListener extends RecyclerView.OnScrollListener {
-
-    private final FastScroller scroller;
-    List<ScrollerListener> listeners = new ArrayList<>();
-    int oldScrollState = RecyclerView.SCROLL_STATE_IDLE;
-
-    public RecyclerViewScrollListener(FastScroller scroller) {
-        this.scroller = scroller;
+class RecyclerViewScrollListener(private val scroller: FastScroller) : RecyclerView.OnScrollListener() {
+    var listeners: MutableList<ScrollerListener> = ArrayList()
+    var oldScrollState = RecyclerView.SCROLL_STATE_IDLE
+    fun addScrollerListener(listener: ScrollerListener) {
+        listeners.add(listener)
     }
 
-    public void addScrollerListener(ScrollerListener listener){
-        listeners.add(listener);
-    }
-
-    @Override
-    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newScrollState) {
-        super.onScrollStateChanged(recyclerView, newScrollState);
-        if(newScrollState==RecyclerView.SCROLL_STATE_IDLE && oldScrollState!=RecyclerView.SCROLL_STATE_IDLE){
-            scroller.getViewProvider().onScrollFinished();
-        } else if(newScrollState!=RecyclerView.SCROLL_STATE_IDLE && oldScrollState==RecyclerView.SCROLL_STATE_IDLE){
-            scroller.getViewProvider().onScrollStarted();
+    override fun onScrollStateChanged(recyclerView: RecyclerView, newScrollState: Int) {
+        super.onScrollStateChanged(recyclerView, newScrollState)
+        if (newScrollState == RecyclerView.SCROLL_STATE_IDLE && oldScrollState != RecyclerView.SCROLL_STATE_IDLE) {
+            scroller.viewProvider.onScrollFinished()
+        } else if (newScrollState != RecyclerView.SCROLL_STATE_IDLE && oldScrollState == RecyclerView.SCROLL_STATE_IDLE) {
+            scroller.viewProvider.onScrollStarted()
         }
-        oldScrollState = newScrollState;
+        oldScrollState = newScrollState
     }
 
-    @Override
-    public void onScrolled(@NonNull RecyclerView rv, int dx, int dy) {
-        if(scroller.shouldUpdateHandlePosition()) {
-            updateHandlePosition(rv);
+    override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
+        if (scroller.shouldUpdateHandlePosition()) {
+            updateHandlePosition(rv)
         }
     }
 
-    void updateHandlePosition(RecyclerView rv) {
-        float relativePos;
-        if(scroller.isVertical()) {
-            int offset = rv.computeVerticalScrollOffset();
-            int extent = rv.computeVerticalScrollExtent();
-            int range = rv.computeVerticalScrollRange();
-            relativePos = offset / (float)(range - extent);
+    fun updateHandlePosition(rv: RecyclerView?) {
+        val relativePos: Float
+        relativePos = if (scroller.isVertical) {
+            val offset = rv!!.computeVerticalScrollOffset()
+            val extent = rv.computeVerticalScrollExtent()
+            val range = rv.computeVerticalScrollRange()
+            offset / (range - extent).toFloat()
         } else {
-            int offset = rv.computeHorizontalScrollOffset();
-            int extent = rv.computeHorizontalScrollExtent();
-            int range = rv.computeHorizontalScrollRange();
-            relativePos = offset / (float)(range - extent);
+            val offset = rv!!.computeHorizontalScrollOffset()
+            val extent = rv.computeHorizontalScrollExtent()
+            val range = rv.computeHorizontalScrollRange()
+            offset / (range - extent).toFloat()
         }
-        scroller.setScrollerPosition(relativePos);
-        notifyListeners(relativePos);
+        scroller.setScrollerPosition(relativePos)
+        notifyListeners(relativePos)
     }
 
-    public void notifyListeners(float relativePos){
-        for(ScrollerListener listener : listeners) listener.onScroll(relativePos);
+    fun notifyListeners(relativePos: Float) {
+        for (listener in listeners) listener.onScroll(relativePos)
     }
 
-    public interface ScrollerListener {
-        void onScroll(float relativePos);
+    interface ScrollerListener {
+        fun onScroll(relativePos: Float)
     }
-
 }

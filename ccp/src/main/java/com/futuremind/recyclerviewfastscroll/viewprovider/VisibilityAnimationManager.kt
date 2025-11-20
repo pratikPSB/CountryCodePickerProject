@@ -1,130 +1,125 @@
-package com.futuremind.recyclerviewfastscroll.viewprovider;
+package com.futuremind.recyclerviewfastscroll.viewprovider
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import androidx.annotation.AnimatorRes;
-import android.view.View;
-
-import com.hbb20.R;
-
+import android.animation.Animator
+import android.animation.AnimatorInflater
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.view.View
+import androidx.annotation.AnimatorRes
+import com.hbb20.R
 
 /**
  * Created by Michal on 05/08/16.
- * Animates showing and hiding elements of the {@link com.futuremind.recyclerviewfastscroll.FastScroller} (handle and bubble).
- * The decision when to show/hide the element should be implemented via {@link ViewBehavior}.
+ * Animates showing and hiding elements of the [com.futuremind.recyclerviewfastscroll.FastScroller] (handle and bubble).
+ * The decision when to show/hide the element should be implemented via [ViewBehavior].
  */
-public class VisibilityAnimationManager {
+class VisibilityAnimationManager protected constructor(
+    protected val view: View?,
+    @AnimatorRes
+    showAnimator: Int,
+    @AnimatorRes
+    hideAnimator: Int,
+    private val pivotXRelative: Float,
+    private val pivotYRelative: Float,
+    hideDelay: Int
+) {
+    protected var hideAnimator: AnimatorSet
+    protected var showAnimator: AnimatorSet
+    fun show() {
+        hideAnimator.cancel()
+        if (view!!.visibility == View.INVISIBLE) {
+            view.visibility = View.VISIBLE
+            updatePivot()
+            showAnimator.start()
+        }
+    }
 
-    protected final View view;
+    fun hide() {
+        updatePivot()
+        hideAnimator.start()
+    }
 
-    protected AnimatorSet hideAnimator;
-    protected AnimatorSet showAnimator;
+    protected fun updatePivot() {
+        view!!.pivotX = pivotXRelative * view.measuredWidth
+        view.pivotY = pivotYRelative * view.measuredHeight
+    }
 
-    private float pivotXRelative;
-    private float pivotYRelative;
+    abstract class AbsBuilder<T : VisibilityAnimationManager?>(protected val view: View?) {
+        protected var showAnimatorResource = R.animator.fastscroll__default_show
+        protected var hideAnimatorResource = R.animator.fastscroll__default_hide
+        protected var hideDelay = 1000
+        protected var pivotX = 0.5f
+        protected var pivotY = 0.5f
+        fun withShowAnimator(
+            @AnimatorRes
+            showAnimatorResource: Int
+        ): AbsBuilder<T> {
+            this.showAnimatorResource = showAnimatorResource
+            return this
+        }
 
-    protected VisibilityAnimationManager(final View view, @AnimatorRes int showAnimator, @AnimatorRes int hideAnimator, float pivotXRelative, float pivotYRelative, int hideDelay){
-        this.view = view;
-        this.pivotXRelative = pivotXRelative;
-        this.pivotYRelative = pivotYRelative;
-        this.hideAnimator = (AnimatorSet) AnimatorInflater.loadAnimator(view.getContext(), hideAnimator);
-        this.hideAnimator.setStartDelay(hideDelay);
-        this.hideAnimator.setTarget(view);
-        this.showAnimator = (AnimatorSet) AnimatorInflater.loadAnimator(view.getContext(), showAnimator);
-        this.showAnimator.setTarget(view);
-        this.hideAnimator.addListener(new AnimatorListenerAdapter() {
+        fun withHideAnimator(
+            @AnimatorRes
+            hideAnimatorResource: Int
+        ): AbsBuilder<T> {
+            this.hideAnimatorResource = hideAnimatorResource
+            return this
+        }
 
+        fun withHideDelay(hideDelay: Int): AbsBuilder<T> {
+            this.hideDelay = hideDelay
+            return this
+        }
+
+        fun withPivotX(pivotX: Float): AbsBuilder<T> {
+            this.pivotX = pivotX
+            return this
+        }
+
+        fun withPivotY(pivotY: Float): AbsBuilder<T> {
+            this.pivotY = pivotY
+            return this
+        }
+
+        abstract fun build(): T
+    }
+
+    class Builder(view: View?) : AbsBuilder<VisibilityAnimationManager>(view) {
+        override fun build(): VisibilityAnimationManager {
+            return VisibilityAnimationManager(
+                view,
+                showAnimatorResource,
+                hideAnimatorResource,
+                pivotX,
+                pivotY,
+                hideDelay
+            )
+        }
+    }
+
+    init {
+        this.hideAnimator = AnimatorInflater.loadAnimator(
+            view!!.context,
+            hideAnimator
+        ) as AnimatorSet
+        this.hideAnimator.startDelay = hideDelay.toLong()
+        this.hideAnimator.setTarget(view)
+        this.showAnimator = AnimatorInflater.loadAnimator(view.context, showAnimator) as AnimatorSet
+        this.showAnimator.setTarget(view)
+        this.hideAnimator.addListener(object : AnimatorListenerAdapter() {
             //because onAnimationEnd() goes off even for canceled animations
-            boolean wasCanceled;
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                if(!wasCanceled) view.setVisibility(View.INVISIBLE);
-                wasCanceled = false;
+            var wasCanceled = false
+            override fun onAnimationEnd(animation: Animator) {
+                super.onAnimationEnd(animation)
+                if (!wasCanceled) view.visibility = View.INVISIBLE
+                wasCanceled = false
             }
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                super.onAnimationCancel(animation);
-                wasCanceled = true;
+            override fun onAnimationCancel(animation: Animator) {
+                super.onAnimationCancel(animation)
+                wasCanceled = true
             }
-        });
-
-        updatePivot();
+        })
+        updatePivot()
     }
-
-    public void show(){
-        hideAnimator.cancel();
-        if (view.getVisibility() == View.INVISIBLE) {
-            view.setVisibility(View.VISIBLE);
-            updatePivot();
-            showAnimator.start();
-        }
-    }
-
-    public void hide(){
-        updatePivot();
-        hideAnimator.start();
-    }
-
-    protected void updatePivot() {
-        view.setPivotX(pivotXRelative*view.getMeasuredWidth());
-        view.setPivotY(pivotYRelative*view.getMeasuredHeight());
-    }
-
-    public static abstract class AbsBuilder<T extends VisibilityAnimationManager> {
-        protected final View view;
-        protected int showAnimatorResource = R.animator.fastscroll__default_show;
-        protected int hideAnimatorResource = R.animator.fastscroll__default_hide;
-        protected int hideDelay = 1000;
-        protected float pivotX = 0.5f;
-        protected float pivotY = 0.5f;
-
-        public AbsBuilder(View view) {
-            this.view = view;
-        }
-
-        public AbsBuilder<T> withShowAnimator(@AnimatorRes int showAnimatorResource){
-            this.showAnimatorResource = showAnimatorResource;
-            return this;
-        }
-
-        public AbsBuilder<T> withHideAnimator(@AnimatorRes int hideAnimatorResource){
-            this.hideAnimatorResource = hideAnimatorResource;
-            return this;
-        }
-
-        public AbsBuilder<T> withHideDelay(int hideDelay){
-            this.hideDelay = hideDelay;
-            return this;
-        }
-
-        public AbsBuilder<T> withPivotX(float pivotX){
-            this.pivotX = pivotX;
-            return this;
-        }
-
-        public AbsBuilder<T> withPivotY(float pivotY){
-            this.pivotY = pivotY;
-            return this;
-        }
-
-        public abstract T build();
-    }
-
-    public static class Builder extends AbsBuilder<VisibilityAnimationManager> {
-
-        public Builder(View view) {
-            super(view);
-        }
-
-        public VisibilityAnimationManager build(){
-            return new VisibilityAnimationManager(view, showAnimatorResource, hideAnimatorResource, pivotX, pivotY, hideDelay);
-        }
-
-    }
-
 }

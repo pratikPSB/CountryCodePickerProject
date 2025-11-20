@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="test">#221224</color>
-    <color name="defaultContentColor">@android:color/black</color>
+    <color name="defaultContentColor">@color/black</color>
     <color name="defaultBorderFlagColor">@android:color/transparent</color>
     <color name="pressed_bg">#64b7b7b7</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="trans_black">#1a000000</color>
+
+    <color name="colorPrimary">#7B41FF</color>
+    <color name="gray03">#C7C7CC</color>
 </resources>

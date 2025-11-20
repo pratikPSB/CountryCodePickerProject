@@ -1,94 +1,81 @@
-package com.futuremind.recyclerviewfastscroll.viewprovider;
+package com.futuremind.recyclerviewfastscroll.viewprovider
 
-import android.content.Context;
-import androidx.annotation.Nullable;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.futuremind.recyclerviewfastscroll.FastScroller;
+import android.content.Context
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import com.futuremind.recyclerviewfastscroll.FastScroller
 
 /**
  * Created by Michal on 05/08/16.
- * Provides {@link View}s and their behaviors for the handle and bubble of the fastscroller.
+ * Provides [View]s and their behaviors for the handle and bubble of the fastscroller.
  */
-public abstract class ScrollerViewProvider {
+abstract class ScrollerViewProvider {
+    protected lateinit var scroller: FastScroller
+        private set
+    protected var handleBehavior: ViewBehavior? = null
+        get() {
+            if (field == null) field = provideHandleBehavior()
+            return field
+        }
+        private set
+    protected var bubbleBehavior: ViewBehavior? = null
+        get() {
+            if (field == null) field = provideBubbleBehavior()
+            return field
+        }
+        private set
 
-    private FastScroller scroller;
-    private ViewBehavior handleBehavior;
-    private ViewBehavior bubbleBehavior;
-
-    public void setFastScroller(FastScroller scroller){
-        this.scroller = scroller;
+    fun setFastScroller(scroller: FastScroller) {
+        this.scroller = scroller
     }
 
-    protected Context getContext(){
-        return scroller.getContext();
-    }
-
-    protected FastScroller getScroller() {
-        return scroller;
-    }
+    protected val context: Context
+        get() = scroller.context
 
     /**
-     * @param container The container {@link FastScroller} for the view to inflate properly.
-     * @return A view which will be by the {@link FastScroller} used as a handle.
+     * @param container The container [FastScroller] for the view to inflate properly.
+     * @return A view which will be by the [FastScroller] used as a handle.
      */
-    public abstract View provideHandleView(ViewGroup container);
+    abstract fun provideHandleView(container: ViewGroup?): View
 
     /**
-     * @param container The container {@link FastScroller} for the view to inflate properly.
-     * @return A view which will be by the {@link FastScroller} used as a bubble.
+     * @param container The container [FastScroller] for the view to inflate properly.
+     * @return A view which will be by the [FastScroller] used as a bubble.
      */
-    public abstract View provideBubbleView(ViewGroup container);
+    abstract fun provideBubbleView(container: ViewGroup?): View?
 
     /**
-     * Bubble view has to provide a {@link TextView} that will show the index title.
-     * @return A {@link TextView} that will hold the index title.
+     * Bubble view has to provide a [TextView] that will show the index title.
+     * @return A [TextView] that will hold the index title.
      */
-    public abstract TextView provideBubbleTextView();
+    abstract fun provideBubbleTextView(): TextView?
 
     /**
-     * To offset the position of the bubble relative to the handle. E.g. in {@link DefaultScrollerViewProvider}
+     * To offset the position of the bubble relative to the handle. E.g. in [DefaultScrollerViewProvider]
      * the sharp corner of the bubble is aligned with the center of the handle.
      * @return the position of the bubble in relation to the handle (according to the orientation).
      */
-    public abstract int getBubbleOffset();
-
-    @Nullable
-    protected abstract ViewBehavior provideHandleBehavior();
-
-    @Nullable
-    protected abstract ViewBehavior provideBubbleBehavior();
-
-    protected ViewBehavior getHandleBehavior(){
-        if(handleBehavior==null) handleBehavior = provideHandleBehavior();
-        return handleBehavior;
+    abstract val bubbleOffset: Int
+    protected abstract fun provideHandleBehavior(): ViewBehavior?
+    protected abstract fun provideBubbleBehavior(): ViewBehavior?
+    fun onHandleGrabbed() {
+        if (handleBehavior != null) handleBehavior!!.onHandleGrabbed()
+        if (bubbleBehavior != null) bubbleBehavior!!.onHandleGrabbed()
     }
 
-    protected ViewBehavior getBubbleBehavior(){
-        if(bubbleBehavior==null) bubbleBehavior = provideBubbleBehavior();
-        return bubbleBehavior;
+    fun onHandleReleased() {
+        if (handleBehavior != null) handleBehavior!!.onHandleReleased()
+        if (bubbleBehavior != null) bubbleBehavior!!.onHandleReleased()
     }
 
-    public void onHandleGrabbed(){
-        if(getHandleBehavior()!=null) getHandleBehavior().onHandleGrabbed();
-        if(getBubbleBehavior()!=null) getBubbleBehavior().onHandleGrabbed();
+    fun onScrollStarted() {
+        if (handleBehavior != null) handleBehavior!!.onScrollStarted()
+        if (bubbleBehavior != null) bubbleBehavior!!.onScrollStarted()
     }
 
-    public void onHandleReleased(){
-        if(getHandleBehavior()!=null) getHandleBehavior().onHandleReleased();
-        if(getBubbleBehavior()!=null) getBubbleBehavior().onHandleReleased();
+    fun onScrollFinished() {
+        if (handleBehavior != null) handleBehavior!!.onScrollFinished()
+        if (bubbleBehavior != null) bubbleBehavior!!.onScrollFinished()
     }
-
-    public void onScrollStarted(){
-        if(getHandleBehavior()!=null) getHandleBehavior().onScrollStarted();
-        if(getBubbleBehavior()!=null) getBubbleBehavior().onScrollStarted();
-    }
-
-    public void onScrollFinished(){
-        if(getHandleBehavior()!=null) getHandleBehavior().onScrollFinished();
-        if(getBubbleBehavior()!=null) getBubbleBehavior().onScrollFinished();
-    }
-
 }

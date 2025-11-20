@@ -72,9 +72,9 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
                     android:background="#e5e5e5"
                     android:padding="8dp">
 
@@ -98,8 +98,8 @@
                                 android:id="@+id/ccp_loadFullNumber"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:ccp_hintExampleNumber="true"
-                                app:ccp_countryPreference="us,in" />
+                                app:ccp_countryPreference="us,in"
+                                app:ccp_hintExampleNumber="true" />
 
                             <EditText
                                 android:id="@+id/editText_loadCarrierNumber"
@@ -182,9 +182,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
                     android:gravity="center_vertical">
 
                     <ImageView
